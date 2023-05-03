@@ -31,6 +31,8 @@ class User(UserMixin, Document):
     email = EmailField()
     image = FileField()
     prononuns = StringField()
+    role = StringField()
+    work = StringField()
 
     meta = {
         'ordering': ['lname','fname']
@@ -56,6 +58,17 @@ class Comment(Document):
     comment = ReferenceField('Comment',reverse_delete_rule=CASCADE)
     # Line 68 is where you store all the info you need but won't find in the Course and Teacher Object
     content = StringField()
+    create_date = DateTimeField(default=dt.datetime.utcnow)
+    modify_date = DateTimeField()
+
+    meta = {
+        'ordering': ['-createdate']
+    }
+
+class Sleep(Document):
+    author = ReferenceField('User',reverse_delete_rule=CASCADE) 
+    rating = IntField()
+    note = StringField()
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
 

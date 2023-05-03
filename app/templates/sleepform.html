@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <h1></h1>
+
+        <form method=post>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.rating.label }} <br>
+                {{ form.rating(size=64) }}
+                <!--List the errors for this field-->
+                {% for error in form.rating.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.note.label }} <br>
+                {{ form.note(cols=64, rows=10) }}
+                <!--List the errors for this field-->
+                {% for error in form.note.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+
+            <p>
+                {{form.submit()}}
+            </p>
+        </form>
+        
+{% endblock %}

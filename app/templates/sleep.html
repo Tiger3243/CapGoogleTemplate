@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% if sleep %}
+    {{moment(sleep.create_date).calendar()}} by {{sleep.author.fname}} {{sleep.author.lname}} 
+    {% if sleep.modifydate %}
+        modified {{moment(sleep.modifydate).calendar()}}
+    {% endif %}
+    <br>
+    {% if sleep.author == current_user %}
+        <a data-toggle="tooltip" data-placement="top" title="Delete sleep" href="/sleep/delete/{{sleep.id}}">
+            <img width="40" class="bottom-image" src="/static/delete.png">
+        </a>
+        <a data-toggle="tooltip" data-placement="top" title="Edit sleep" href="/sleep/edit/{{sleep.id}}">
+            <img width="40" class="bottom-image" src="/static/edit.png">
+        </a>
+    {% endif %}
+
+    <h1 class="display-5">last nights sleep</h1>
+    <p class="fs-3 text-break">
+        {% if sleep.author.image %}
+            <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(sleep.author.image.read())}}">
+        {% endif %}
+            {{sleep.rating}} <br>
+            {{sleep.note}}
+
+    </p>
+{% else %}
+    <h1 class="display-5">no sleep</h1>
+{% endif %}
+
+{% endblock %}
